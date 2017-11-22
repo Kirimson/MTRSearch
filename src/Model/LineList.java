@@ -2,6 +2,7 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class LineList {
 	private HashMap<String, Line> lineList;
@@ -29,6 +30,25 @@ public class LineList {
 			termini = "Sorry, this line doesn't exist.";
 		}
 		return termini;
+	}
+	
+	public String findConnectedLines(String name) {
+		StringBuffer sb = new StringBuffer();
+		
+		HashSet<String> lineNames = new HashSet<String>();
+		
+		for(Station s : lineList.get(name).getStations()) {
+			lineNames.addAll(s.getLines());
+		}
+		
+		sb.append(getLine(name.toLowerCase()).getName()+" is connected to:\n");
+		
+		for(String l : lineNames) {
+			if(!l.toLowerCase().equals(name))
+				sb.append(l+"\n");
+		}
+		
+		return sb.toString();
 	}
 	
 	public String toString(String name) {

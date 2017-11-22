@@ -1,21 +1,24 @@
 package Model;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Line {
 	
 	private String name;
-	private LinkedList<String> stationList;
+	private LinkedList<Station> stationList;
 	
-	public Line(String lineName, String[] stations){
+	public Line(String lineName){
 		name = lineName;
-		stationList = new LinkedList<String>(Arrays.asList(stations));
+		stationList = new LinkedList<Station>();;
+	}
+	
+	public void addStation(Station station) {
+		stationList.add(station);
 	}
 	
 	public String getTermini(){
-		String first = stationList.getFirst();
-		String last = stationList.getLast();
+		String first = stationList.getFirst().getName();
+		String last = stationList.getLast().getName();
 		
 		return name + " goes from: " + first + " to " + last;
 	}
@@ -29,14 +32,18 @@ public class Line {
 		
 		sb.append(name + ": ");
 		
-		for(String s: stationList) {
-			if(s.equals(stationList.getLast()))
-				sb.append(s);
+		for(Station s: stationList) {
+			if(s.getName().equals(stationList.getLast().getName()))
+				sb.append(s.getName());
 			else
-				sb.append(s+" <-> ");
+				sb.append(s.getName()+" <-> ");
 		}
 		
 		return sb.toString();
 	}
 
+	public LinkedList<Station> getStations(){
+		return stationList;
+	}
+	
 }
