@@ -1,11 +1,9 @@
 package View;
 
-import java.util.HashSet;
 import java.util.Scanner;
 
 import Model.LineList;
 import Model.Reader;
-import Model.Station;
 import Model.StationList;
 
 public class MtrCLI {
@@ -26,10 +24,11 @@ public class MtrCLI {
 		stations.addStations(reader.createStations());
 		lines.addLines((reader.CreateLines(stations)));
 		
+		Scanner scanner = new Scanner(System.in);
+		
 		while(!isDone)
 		{
 			System.out.println("Enter Command: ");
-			Scanner scanner = new Scanner(System.in);
 			
 			String commandString = scanner.nextLine().toLowerCase();
 			commandString = commandString.replaceAll("\\s+"," ");
@@ -42,7 +41,7 @@ public class MtrCLI {
 				rest = commandString.split(" ", 2)[1];		
 				rest = rest.trim();
 			} catch(ArrayIndexOutOfBoundsException e) {
-				//nothing we can do.
+				//Nothing we can do.
 			}
 		
 			switch(command) {
@@ -53,6 +52,7 @@ public class MtrCLI {
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
 		}
+		scanner.close();
 	}
 	
 	public String helpMe() {
