@@ -1,20 +1,21 @@
 package Model;
 
-import java.util.HashSet;
+import java.util.HashMap;
 
 public class StationList {
-	private HashSet<StationNode> stations;
+
+	private HashMap<String, Station> stationList;
 	
-	public StationNode getStation(String name){
-		for(StationNode s : stations){
-			if (s.getName() == name)
-				return s;
-		}
-		return null;
+	public StationList() {
+		stationList = new HashMap<String, Station>();
 	}
 	
-	public void addStation(String station){
-		if(getStation(station) == null)
-			stations.add(new StationNode(station));
+	public void addStations(HashMap<String, Station> list) {
+		stationList = list;
 	}
+	
+	public Station getStation(String name) {
+		return stationList.get(name.toLowerCase());
+	}
+
 }
