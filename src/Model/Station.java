@@ -22,7 +22,27 @@ public class Station {
 	
 	public void addLine(String line) {
 		lines.add(line);
-//		System.out.println(name+": "+ line);
+	}
+	
+	public String sharesLine(Station otherStation) {
+		
+		for(String line : lines) {
+			if(otherStation.getLines().contains(line))
+				for(String otherLine : otherStation.getLines()) {
+					if(getLines().contains(otherLine)) {
+						if(otherLine != line)
+							return line+" and "+otherLine;
+					}
+				}
+		}
+		return "not";
+	}
+	
+	public String getLine() {
+		for(String line : lines) {
+			return line;
+		}
+		return "";
 	}
 
 }
