@@ -1,5 +1,6 @@
 package View;
 
+import java.util.HashSet;
 import java.util.Scanner;
 
 import Model.Line;
@@ -73,11 +74,40 @@ public class MtrCLI {
 	}
 	
 	public String findPath(String statString) {
-		String stationA = statString.split(",")[0].trim();
-		String stationB = statString.split(",")[1].trim();
+		Station stationA = stations.getStation(statString.split(",")[0].trim());
+		Station stationB = stations.getStation(statString.split(",")[1].trim());
 	
+		boolean found = false;
 		
-		return "";
+		HashSet<String> lineList = new HashSet<String>();
+		
+		HashSet<String> linesA = stationA.getLines();
+		HashSet<String> linesB = stationB.getLines();
+		
+//		while(!found){
+		String newA = "";
+		String newB = "";
+			for(String a : linesA)
+			{
+				newA = a;
+				for(String b : linesB)
+				{
+					newB = b;
+					for(String bL : lines.hashConn(b.toLowerCase())){
+						if(lines.hashConn(a.toLowerCase()).contains(bL))
+						{
+							System.out.println("share a connected line: "+bL);
+							found = true;
+						}
+					}
+				}
+			}
+			if(found = false){
+				
+			}
+//		}
+		
+		return stationA.getName();
 	}
 	
 }

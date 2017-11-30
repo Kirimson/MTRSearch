@@ -32,14 +32,19 @@ public class LineList {
 		return termini;
 	}
 	
-	public String findConnectedLines(String name) {
-		StringBuffer sb = new StringBuffer();
-		
+	public HashSet<String> hashConn(String name){
 		HashSet<String> lineNames = new HashSet<String>();
 		
 		for(Station s : lineList.get(name).getStations()) {
 			lineNames.addAll(s.getLines());
 		}
+		return lineNames;
+	}
+	
+	public String findConnectedLines(String name) {
+		StringBuffer sb = new StringBuffer();
+		
+		HashSet<String> lineNames = hashConn(name);
 		
 		sb.append(getLine(name.toLowerCase()).getName()+" is connected to:\n");
 		
