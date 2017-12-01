@@ -24,11 +24,23 @@ public class Reader {
 		HashMap<String, Station> sList = new HashMap<String, Station>();
 		
 		while(scan.hasNextLine()) {
+			Station lastStation = null;
 			String[] arr = scan.nextLine().split(",");
 			String[] stations = Arrays.copyOfRange(arr, 1, arr.length);
 			
 			for(String s : stations) {
-				sList.put(s.toLowerCase(), new Station(s));
+				
+				Station station = sList.get(s);
+				
+				if(station == null)
+					station = new Station(s);
+				
+				if(lastStation != null){
+					station.addLinkedStation(lastStation);
+					lastStation.addLinkedStation(station);
+				}
+				sList.put(s.toLowerCase(),station);
+				lastStation = sList.get(s.toLowerCase());
 			}
 		}
 		

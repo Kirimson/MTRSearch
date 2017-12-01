@@ -52,6 +52,7 @@ public class MtrCLI {
 				case "list": System.out.println(lines.toString(rest));break;
 				case "connected": System.out.println(lines.findConnectedLines(rest));break;
 				case "path": System.out.println(findPath(rest));break;
+				case "a": System.out.println(test(rest));;break;
 				case "help": System.out.println(helpMe());;break;
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
@@ -59,6 +60,10 @@ public class MtrCLI {
 		scanner.close();
 	}
 	
+	private String test(String rest) {
+		return stations.getStation(rest).getLinkedStations();
+	}
+
 	public String helpMe() {
 		StringBuffer sb = new StringBuffer();
 		
