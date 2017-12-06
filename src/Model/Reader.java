@@ -21,30 +21,33 @@ public class Reader {
 	}
 	
 	public HashMap<String, Station> createStations(){
-		HashMap<String, Station> sList = new HashMap<String, Station>();
+		HashMap<String, Station> stationList = new HashMap<String, Station>();
 		
 		while(scan.hasNextLine()) {
-			Station lastStation = null;
+			String lastStation = null;
 			String[] arr = scan.nextLine().split(",");
 			String[] stations = Arrays.copyOfRange(arr, 1, arr.length);
 			
-			for(String s : stations) {
+			for(String stationString : stations) {
 				
-				Station station = sList.get(s);
+				Station station = stationList.get(stationString.toLowerCase());
 				
 				if(station == null)
-					station = new Station(s);
+				{
+					station = new Station(stationString);
+					stationList.put(stationString.toLowerCase(),station);
+				}
 				
 				if(lastStation != null){
-					station.addLinkedStation(lastStation);
-					lastStation.addLinkedStation(station);
+					stationList.get(stationString.toLowerCase()).addLinkedStation(stationList.get(lastStation.toLowerCase()));
+					stationList.get(lastStation.toLowerCase()).addLinkedStation(stationList.get(stationString.toLowerCase()));
 				}
-				sList.put(s.toLowerCase(),station);
-				lastStation = sList.get(s.toLowerCase());
+				
+				lastStation = stationString;
 			}
 		}
 		
-		return sList;
+		return stationList;
 	}
 	
 	public ArrayList<Line> CreateLines(StationList stationList){

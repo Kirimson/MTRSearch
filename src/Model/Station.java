@@ -53,17 +53,16 @@ public class Station {
 		linkedStations.add(s);
 	}
 	
-	public String getLinkedStations(){
+	public ArrayList<Station> getLinkedStations(){
 		
-		StringBuffer sb = new StringBuffer();
-		System.out.println(name);
-		for(Station s : linkedStations){
-			sb.append(s.getName());
-			sb.append(",");
-//			sb.append(s.getLinkedStations());
-		}
+//		StringBuffer sb = new StringBuffer();
+//		System.out.println(name);
+//		for(Station s : linkedStations){
+//			sb.append(s.getName());
+//			sb.append(",");
+//		}
 		
-		return sb.toString();
+		return linkedStations;
 	}
 
 }

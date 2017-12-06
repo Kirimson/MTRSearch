@@ -1,5 +1,6 @@
 package View;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -52,7 +53,7 @@ public class MtrCLI {
 				case "list": System.out.println(lines.toString(rest));break;
 				case "connected": System.out.println(lines.findConnectedLines(rest));break;
 				case "path": System.out.println(findPath(rest));break;
-				case "a": System.out.println(test(rest));;break;
+				case "b": System.out.println(testa(rest));;break;
 				case "help": System.out.println(helpMe());;break;
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
@@ -60,8 +61,12 @@ public class MtrCLI {
 		scanner.close();
 	}
 	
-	private String test(String rest) {
-		return stations.getStation(rest).getLinkedStations();
+//	private String test(String rest) {
+//		return stations.getStation(rest).getLinkedStations();
+//	}
+	
+	private Station testa(String rest) {
+		return stations.getStation(rest);
 	}
 
 	public String helpMe() {
@@ -79,40 +84,63 @@ public class MtrCLI {
 	}
 	
 	public String findPath(String statString) {
-		Station stationA = stations.getStation(statString.split(",")[0].trim());
-		Station stationB = stations.getStation(statString.split(",")[1].trim());
+	
+		String stationA = statString.split(",")[0].trim();
+		String stationB = statString.split(",")[1].trim();
 	
 		boolean found = false;
 		
-		HashSet<String> lineList = new HashSet<String>();
+		ArrayList<String> path = new ArrayList<String>();
+		path.add(stationA);
+		path = stations.recursivePath(stationA, stationB, path);
 		
-		HashSet<String> linesA = stationA.getLines();
-		HashSet<String> linesB = stationB.getLines();
+		StringBuffer sb = new StringBuffer();
 		
-//		while(!found){
-		String newA = "";
-		String newB = "";
-			for(String a : linesA)
-			{
-				newA = a;
-				for(String b : linesB)
-				{
-					newB = b;
-					for(String bL : lines.hashConn(b.toLowerCase())){
-						if(lines.hashConn(a.toLowerCase()).contains(bL))
-						{
-							System.out.println("share a connected line: "+bL);
-							found = true;
-						}
-					}
-				}
-			}
-			if(found = false){
-				
-			}
-//		}
+		for(String s  : path) {
+			if(s.equals(path.get(path.size()-1)))
+				sb.append(s);
+			else
+				sb.append(s+" -> ");
+		}
 		
-		return stationA.getName();
+		return sb.toString();
 	}
+	
+//	public String findPath(String statString) {
+//		Station stationA = stations.getStation(statString.split(",")[0].trim());
+//		Station stationB = stations.getStation(statString.split(",")[1].trim());
+//	
+//		boolean found = false;
+//		
+//		HashSet<String> lineList = new HashSet<String>();
+//		
+//		HashSet<String> linesA = stationA.getLines();
+//		HashSet<String> linesB = stationB.getLines();
+//		
+////		while(!found){
+//		String newA = "";
+//		String newB = "";
+//			for(String a : linesA)
+//			{
+//				newA = a;
+//				for(String b : linesB)
+//				{
+//					newB = b;
+//					for(String bL : lines.hashConn(b.toLowerCase())){
+//						if(lines.hashConn(a.toLowerCase()).contains(bL))
+//						{
+//							System.out.println("share a connected line: "+bL);
+//							found = true;
+//						}
+//					}
+//				}
+//			}
+//			if(found = false){
+//				
+//			}
+////		}
+//		
+//		return stationA.getName();
+//	}
 	
 }
