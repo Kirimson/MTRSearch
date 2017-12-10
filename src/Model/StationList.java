@@ -28,29 +28,83 @@ public class StationList {
 		return stationList.get(name.toLowerCase()).getLinkedStations();
 	}
 
-	public ArrayList<String> recursivePath(String stationA, String stationB, ArrayList<String> path) {
+	public ArrayList<String> recursivePath(String current, String goal, ArrayList<String> path, HashMap<String, Integer> discovered) {
 		
-		String goal = stationB;
-		ArrayList<String> stationPath = path;
-		boolean found = false;
+			if(discovered.get(current) == null) {
+				discovered.put(current, 0);
+			}else {
+				discovered.put(current, discovered.get(current)+1);
+			}
 		
-			for(Station linked : stationList.get(stationA).getLinkedStations()) {
-				String linkedName = linked.getName().toLowerCase();
-				
-				if(linkedName.equals(stationB.toLowerCase())) {
-					path.add(linkedName);
+			Station linked = stationList.get(current).getLinkedStations().get(discovered.get(current));
+			String linkedName = linked.getName().toLowerCase();
+
+			if(discovered.get(linkedName) == null) {
+				discovered.put(linkedName, -1);
+			}
+			
+			if(discovered.get(linkedName) >= stationList.get(linkedName).getLinkedStations().size()-1) {
+				discovered.put(current, discovered.get(current)+1);
+				try {
+					linked = stationList.get(current).getLinkedStations().get(discovered.get(current));
+					linkedName = linked.getName().toLowerCase();
+				} catch(IndexOutOfBoundsException e) {
 					return path;
-				}
-				else
-				{
-					path.add(linkedName);
-					stationA = linkedName;
-					recursivePath(stationA, stationB, path);
 				}
 				
 			}
-		
+			
+			if(discovered.get(current) < stationList.get(current).getLinkedStations().size()) {
+				path.add(linkedName);
+				
+				if(!linkedName.equals(goal))
+					path = recursivePath(linkedName, goal, path, discovered);
+			}
+			
 		return path;
+	}
+
+	public String newR(Station current, Station goalStation, String path, HashMap<Station, Integer> discovered) {
+
+		while(stationHasMoreConnections(current, discovered)) {
+			
+			//first linked station
+			Station linked = discoverStation(current, discovered);
+			discoverStation(linked, discovered);
+			
+			path += ", "+linked.getName();
+			
+			if(linked.equals(goalStation)) {
+				return path;
+			}
+			else
+			{
+				//that wasn't it. go to the next one
+				path = newR(linked, goalStation, path, discovered);
+			}
+			
+		}
+		
+		return null;
+	}
+
+	private Station discoverStation(Station station, HashMap<Station, Integer> discovered) {
+		if(discovered.get(station) == null)
+			discovered.put(station, 0);
+		else
+			discovered.put(station, discovered.get(station)+1);
+		
+		return station.getLinkedStations().get(discovered.get(station));
+	}
+
+	private boolean stationHasMoreConnections(Station station, HashMap<Station, Integer> discovered) {
+		if(discovered.get(station) == null)
+			return true;
+		
+		if(station.getLinkedStations().size() >= discovered.get(station))
+			return true;
+		
+		return false;
 	}
 
 }

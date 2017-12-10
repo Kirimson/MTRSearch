@@ -49,6 +49,13 @@ public class Station {
 		return "";
 	}
 	
+	public String getALine() {
+		for(String s : lines) {
+			return s;
+		}
+		return "";
+	}
+	
 	public void addLinkedStation(Station s){
 		linkedStations.add(s);
 	}

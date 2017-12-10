@@ -18,7 +18,7 @@ public class LineList {
 		}
 	}
 	
-	private Line getLine(String name) {
+	public Line getLine(String name) {
 		return lineList.get(name);
 	}
 	

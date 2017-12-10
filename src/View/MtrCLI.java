@@ -1,6 +1,8 @@
 package View;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -52,8 +54,8 @@ public class MtrCLI {
 				case "termini": System.out.println(lines.lineTermini(rest));break;
 				case "list": System.out.println(lines.toString(rest));break;
 				case "connected": System.out.println(lines.findConnectedLines(rest));break;
-				case "path": System.out.println(findPath(rest));break;
-				case "b": System.out.println(testa(rest));;break;
+				case "path": System.out.println(anna(rest));break;
+				case "b": System.out.println(test(rest));;break;
 				case "help": System.out.println(helpMe());;break;
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
@@ -61,9 +63,15 @@ public class MtrCLI {
 		scanner.close();
 	}
 	
-//	private String test(String rest) {
-//		return stations.getStation(rest).getLinkedStations();
-//	}
+	private String test(String rest) {
+		StringBuffer sb = new StringBuffer();
+		
+		for(Station s : stations.getStation(rest).getLinkedStations()) {
+			sb.append(s.getName());
+		}
+		
+		return sb.toString();
+	}
 	
 	private Station testa(String rest) {
 		return stations.getStation(rest);
@@ -83,64 +91,88 @@ public class MtrCLI {
 		
 	}
 	
-	public String findPath(String statString) {
-	
-		String stationA = statString.split(",")[0].trim();
-		String stationB = statString.split(",")[1].trim();
-	
-		boolean found = false;
-		
-		ArrayList<String> path = new ArrayList<String>();
-		path.add(stationA);
-		path = stations.recursivePath(stationA, stationB, path);
-		
-		StringBuffer sb = new StringBuffer();
-		
-		for(String s  : path) {
-			if(s.equals(path.get(path.size()-1)))
-				sb.append(s);
-			else
-				sb.append(s+" -> ");
-		}
-		
-		return sb.toString();
-	}
+//	public String findPath(String statString) {
+//	
+//		String stationA = statString.split(",")[0].trim();
+//		String stationB = statString.split(",")[1].trim();
+//	
+//		HashMap<String, Integer> discovered = new HashMap<String, Integer>();
+//		
+//		ArrayList<String> path = new ArrayList<String>();
+//		path.add(stationA);
+//		stations.recursivePath(stationA, stationB, path, discovered);
+//		
+//		StringBuffer sb = new StringBuffer();
+//		
+//		for(int i = 0; i < path.size(); i++) {
+//			String s = path.get(i);
+//			if(i == path.size()-1)
+//				sb.append(s);
+//			else
+//				sb.append(s+" -> ");
+//		}
+//		
+//		return sb.toString();
+//	}
 	
 //	public String findPath(String statString) {
-//		Station stationA = stations.getStation(statString.split(",")[0].trim());
-//		Station stationB = stations.getStation(statString.split(",")[1].trim());
-//	
-//		boolean found = false;
 //		
-//		HashSet<String> lineList = new HashSet<String>();
+//		Station start = stations.getStation(statString.split(",")[0].trim());
+//		Station goalStation = stations.getStation(statString.split(",")[1].trim());
+//		HashMap<Station, Integer> discovered = new HashMap<Station, Integer>();
+//		String path;
 //		
-//		HashSet<String> linesA = stationA.getLines();
-//		HashSet<String> linesB = stationB.getLines();
+//		path = stations.newR(start, goalStation, start.getName(), discovered);
 //		
-////		while(!found){
-//		String newA = "";
-//		String newB = "";
-//			for(String a : linesA)
-//			{
-//				newA = a;
-//				for(String b : linesB)
-//				{
-//					newB = b;
-//					for(String bL : lines.hashConn(b.toLowerCase())){
-//						if(lines.hashConn(a.toLowerCase()).contains(bL))
-//						{
-//							System.out.println("share a connected line: "+bL);
-//							found = true;
-//						}
-//					}
-//				}
-//			}
-//			if(found = false){
-//				
-//			}
-////		}
-//		
-//		return stationA.getName();
+//		return path;
 //	}
+	
+	public String anna(String statString) {
+		
+		ArrayList<String> path = new ArrayList<String>();
+		Station start = stations.getStation(statString.split(",")[0].trim());
+		Station goalStation = stations.getStation(statString.split(",")[1].trim());
+		String goalLine = goalStation.getALine();
+		String currentLine = start.getALine();
+		
+		
+		
+		if(currentLine.equals(goalLine)) {
+			
+			boolean printPath = false;
+			boolean reverse = false;
+			
+			for(Station s : lines.getLine(currentLine.toLowerCase()).getStations()) {
+				if(s.equals(start)) {
+					reverse = false;
+					break;
+				}
+				
+				if(s.equals(goalStation)) {
+					reverse = true;
+					break;
+				}
+			}
+			
+			for(Station s : lines.getLine(currentLine.toLowerCase()).getStations()) {
+				if(s.equals(start) || s.equals(goalStation))
+					printPath = !printPath;
+
+				if(printPath)
+					path.add(s.getName());
+			}
+			
+			if(!reverse)
+				path.add(goalStation.getName());
+			else
+				path.add(start.getName());
+			
+			if(reverse)
+				Collections.reverse(path);
+		}
+		
+		return path.toString();
+	}
+
 	
 }
