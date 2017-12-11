@@ -64,47 +64,55 @@ public class StationList {
 		return path;
 	}
 
-	public String newR(Station current, Station goalStation, String path, HashMap<Station, Integer> discovered) {
+	public String newR(Station current, Station goalStation, String path, HashMap<Station, Integer> discovered, Station prior) {
 
-		while(stationHasMoreConnections(current, discovered)) {
-			
+		if(stationHasMoreConnections(current, discovered)) {
 			//first linked station
 			Station linked = discoverStation(current, discovered);
-			discoverStation(linked, discovered);
-			
-			path += ", "+linked.getName();
 			
 			if(linked.equals(goalStation)) {
+				path += " > "+linked.getName();
 				return path;
-			}
-			else
-			{
+			} else if(linked != prior) {
+				path += " > "+linked.getName();
 				//that wasn't it. go to the next one
-				path = newR(linked, goalStation, path, discovered);
+				path = newR(linked, goalStation, path, discovered, current);
+			}else if(stationHasMoreConnections(current, discovered)) {
+				linked = discoverStation(current, discovered);
+				if(linked.equals(goalStation)) {
+					path += " > "+linked.getName();
+					return path;
+				} else {
+					path += " > "+linked.getName();
+					path = newR(linked, goalStation, path, discovered, current);
+				}
+			} else {
+				path += " > "+linked.getName();
+				path = newR(prior, goalStation, path, discovered, current);
 			}
 			
 		}
 		
-		return null;
+		return path;
 	}
 
 	private Station discoverStation(Station station, HashMap<Station, Integer> discovered) {
 		if(discovered.get(station) == null)
-			discovered.put(station, 0);
+			discovered.put(station, 1);
 		else
 			discovered.put(station, discovered.get(station)+1);
 		
-		return station.getLinkedStations().get(discovered.get(station));
+		return station.getLinkedStations().get(discovered.get(station)-1);
 	}
 
 	private boolean stationHasMoreConnections(Station station, HashMap<Station, Integer> discovered) {
 		if(discovered.get(station) == null)
 			return true;
 		
-		if(station.getLinkedStations().size() >= discovered.get(station))
-			return true;
+		if(discovered.get(station) >= station.getLinkedStations().size())
+			return false;
 		
-		return false;
+		return true;
 	}
 
 }

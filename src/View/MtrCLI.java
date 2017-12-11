@@ -56,6 +56,7 @@ public class MtrCLI {
 				case "connected": System.out.println(lines.findConnectedLines(rest));break;
 				case "path": System.out.println(anna(rest));break;
 				case "b": System.out.println(test(rest));;break;
+				case "c": System.out.println(findPath(rest));;break;
 				case "help": System.out.println(helpMe());;break;
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
@@ -115,17 +116,17 @@ public class MtrCLI {
 //		return sb.toString();
 //	}
 	
-//	public String findPath(String statString) {
-//		
-//		Station start = stations.getStation(statString.split(",")[0].trim());
-//		Station goalStation = stations.getStation(statString.split(",")[1].trim());
-//		HashMap<Station, Integer> discovered = new HashMap<Station, Integer>();
-//		String path;
-//		
-//		path = stations.newR(start, goalStation, start.getName(), discovered);
-//		
-//		return path;
-//	}
+	public String findPath(String statString) {
+		
+		Station start = stations.getStation(statString.split(",")[0].trim());
+		Station goalStation = stations.getStation(statString.split(",")[1].trim());
+		HashMap<Station, Integer> discovered = new HashMap<Station, Integer>();
+		String path;
+		
+		path = stations.newR(start, goalStation, start.getName(), discovered, null);
+		path += "DONE";
+		return path;
+	}
 	
 	public String anna(String statString) {
 		
@@ -135,6 +136,8 @@ public class MtrCLI {
 		String goalLine = goalStation.getALine();
 		String currentLine = start.getALine();
 		
+		ArrayList<Station> roughPath = new ArrayList<Station>();
+//		roughPath = findLinePath();
 		
 		
 		if(currentLine.equals(goalLine)) {
