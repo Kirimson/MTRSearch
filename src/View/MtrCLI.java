@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 import Model.Line;
@@ -54,9 +55,10 @@ public class MtrCLI {
 				case "termini": System.out.println(lines.lineTermini(rest));break;
 				case "list": System.out.println(lines.toString(rest));break;
 				case "connected": System.out.println(lines.findConnectedLines(rest));break;
-				case "path": System.out.println(anna(rest));break;
+				case "a": System.out.println(anna(rest));break;
 				case "b": System.out.println(test(rest));;break;
 				case "c": System.out.println(findPath(rest));;break;
+				case "d": System.out.println(bfs(rest));;break;
 				case "help": System.out.println(helpMe());;break;
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
@@ -115,6 +117,26 @@ public class MtrCLI {
 //		
 //		return sb.toString();
 //	}
+	
+	public String bfs(String statString) {
+		
+		Station start = stations.getStation(statString.split(",")[0].trim());
+		Station goalStation = stations.getStation(statString.split(",")[1].trim());
+		HashMap<Station, Station> path = new HashMap<Station, Station>();
+		
+		LinkedList<String> realPath = stations.bfs(start, goalStation);
+		
+		StringBuffer sb = new StringBuffer();
+		for(int i = 0; i < realPath.size(); i++) {
+			String s = realPath.get(i);
+			if(i == path.size()-1)
+				sb.append(s);
+			else
+				sb.append(s+" -> ");
+		}
+		
+		return sb.toString();
+	}
 	
 	public String findPath(String statString) {
 		
