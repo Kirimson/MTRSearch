@@ -67,9 +67,7 @@ public class StationList {
 				}
 				
 			}
-			
 			closedSet.add(current);
-			
 		}
 		
 		return path;
