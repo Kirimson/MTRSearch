@@ -79,17 +79,25 @@ public class MtrCLI {
 		Station start = null;
 		Station goalStation = null;
 		
-		if(statString.split(",").length >= 2) {
-			if(statString.split(",").length >= 3) {
+		String[] stationsString = statString.split(",");
+		
+		if(stationsString.length >= 2) {
+			if(stationsString.length >= 3) {
 				System.out.println("More than two stations have been provided. Only the first two will be used.");
 			}
-			start = stations.getStation(statString.split(",")[0].trim());
-			goalStation = stations.getStation(statString.split(",")[1].trim());
+			start = stations.getStation(stationsString[0].trim());
+			goalStation = stations.getStation(stationsString[1].trim());
 		}
 		else
 		{
 			return "Please enter two stations, in the format <Station1>,<Station2>. type 'help' for further assistence.";
 		}
+		
+		if(start == null)
+			return "Station '"+stationsString[0]+"' doesn't exist. Please enter a valid MTR station";
+		
+		if(goalStation == null)
+			return "Station '"+stationsString[1]+"' doesn't exist. Please enter a valid MTR station";
 		
 		HashMap<Station, ArrayList<Station>> path = stations.findPath(start, goalStation);
 		
