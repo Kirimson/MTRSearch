@@ -18,12 +18,25 @@ public class MtrCLI {
 	
 	private boolean isDone;
 	
+	/**
+	 * Class Constructor initialises lineList, stationList and reader objects.
+	 * <p>
+	 * 
+	 */
 	public MtrCLI() {
 		lines = new LineList();
 		stations = new StationList();
 		reader = new Reader();
 	}
 	
+	/**
+	 * A control hub for the program. Handles and delegates what actions to take dependent on what the user enters. <br/>
+	 * Termini: {@link LineList #lineTermini} <br/>
+	 * List: {@link LineList #toString} <br/>
+	 * Connected: {@link LineList #findConnectedlines} <br/>
+	 * Path: {@link MtrCLI #findPath}<br/>
+	 * Help: {@link MtrCLI #helpMe} <br/>
+	 */
 	public void run() {
 		stations.addStations(reader.createStations());
 		lines.addLines((reader.createLines(stations)));
@@ -32,6 +45,7 @@ public class MtrCLI {
 		
 		while(!isDone)
 		{
+			// Read user string
 			System.out.println("Enter Command: ");
 			
 			String commandString = scanner.nextLine().toLowerCase();
@@ -45,21 +59,27 @@ public class MtrCLI {
 				rest = commandString.split(" ", 2)[1];		
 				rest = rest.trim();
 			} catch(ArrayIndexOutOfBoundsException e) {
-				//Nothing we can do.
+				if(!command.equals("help"))
+					System.out.println("Warning: Please enter parameters, refer to help for further assistance.");
 			}
-		
+			// Go to case dependent on what user enters or error handle
 			switch(command) {
 				case "termini": System.out.println(lines.lineTermini(rest));break;
 				case "list": System.out.println(lines.toString(rest));break;
 				case "connected": System.out.println(lines.findConnectedLines(rest));break;
-				case "path": System.out.println(findPath(rest));;break;
-				case "help": System.out.println(helpMe());;break;
+				case "path": System.out.println(findPath(rest));break;
+				case "help": System.out.println(helpMe());break;
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
 		}
 		scanner.close();
 	}
 
+	/**
+	 * Help messages.
+	 * 
+	 * @return String of help messages
+	 */
 	public String helpMe() {
 		StringBuffer sb = new StringBuffer();
 		
@@ -73,12 +93,19 @@ public class MtrCLI {
 		return sb.toString();
 	}
 	
-	public String findPath(String statString) {
+	/**
+	 * Finding a path between two user given stations. Uses {@link StationList #findPath(Station, Station)} and then traces
+	 * the search back to find a path which then reverses the path before outputting to console.
+	 * 
+	 * @param startEnd 
+	 * @return fastest path between two stations
+	 */
+	public String findPath(String startEnd) {
 		
 		Station start = null;
 		Station goalStation = null;
 		
-		String[] stationsString = statString.split(",");
+		String[] stationsString = startEnd.split(",");
 		
 		if(stationsString.length >= 2) {
 			if(stationsString.length >= 3) {
@@ -88,9 +115,7 @@ public class MtrCLI {
 			goalStation = stations.getStation(stationsString[1].trim());
 		}
 		else
-		{
 			return "Error: Please enter two stations, in the format <Start Station>,<End Station>. type 'help' for further assistence.";
-		}
 		
 		if(start == null)
 			return "Error: Station '"+stationsString[0]+"' doesn't exist. Please enter a valid MTR station";
