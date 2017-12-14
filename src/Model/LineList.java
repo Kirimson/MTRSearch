@@ -58,9 +58,10 @@ public class LineList {
 		}
 		return termini;
 	}
+	
 	/**
 	 * 
-	 * Uses method {@link Line #getLinkedStations}
+	 * Uses methods {@link Line #getStations} and {@link Station #getLines} in order to get all connected stations
 	 * <p>
 	 *
 	 * @param 		A string variable, name
@@ -75,6 +76,14 @@ public class LineList {
 		return lineNames;
 	}
 	
+	/**
+	 * Returns a string of all the connected lines.
+	 * 
+	 * <p>
+	 *
+	 * @param 		A string variable, name
+	 * @return 		A string of all connected lines
+	 */
 	public String findConnectedLines(String name) {
 		StringBuffer sb = new StringBuffer();
 		
@@ -97,6 +106,14 @@ public class LineList {
 		return sb.toString();
 	}
 	
+	/**
+	 * 
+	 * Formatting a string for output in the console.
+	 * <p>
+	 *
+	 * @param 		A string variable, name
+	 * @return 		A formatted string
+	 */
 	public String toString(String name) {
 		String line = "";
 		try {
