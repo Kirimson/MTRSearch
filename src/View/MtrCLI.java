@@ -52,7 +52,7 @@ public class MtrCLI {
 				case "termini": System.out.println(lines.lineTermini(rest));break;
 				case "list": System.out.println(lines.toString(rest));break;
 				case "connected": System.out.println(lines.findConnectedLines(rest));break;
-				case "path": System.out.println(bfs(rest));;break;
+				case "path": System.out.println(findPath(rest));;break;
 				case "help": System.out.println(helpMe());;break;
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
@@ -74,12 +74,24 @@ public class MtrCLI {
 		
 	}
 	
-	public String bfs(String statString) {
+	public String findPath(String statString) {
 		
-		Station start = stations.getStation(statString.split(",")[0].trim());
-		Station goalStation = stations.getStation(statString.split(",")[1].trim());
+		Station start = null;
+		Station goalStation = null;
 		
-		HashMap<Station, ArrayList<Station>> path = stations.bfs(start, goalStation);
+		if(statString.split(",").length >= 2) {
+			if(statString.split(",").length >= 3) {
+				System.out.println("More than two stations have been provided. Only the first two will be used.");
+			}
+			start = stations.getStation(statString.split(",")[0].trim());
+			goalStation = stations.getStation(statString.split(",")[1].trim());
+		}
+		else
+		{
+			return "Please enter two stations, in the format <Station1>,<Station2>. type 'help' for further assistence.";
+		}
+		
+		HashMap<Station, ArrayList<Station>> path = stations.findPath(start, goalStation);
 		
 		Station currChild = goalStation;
 		
