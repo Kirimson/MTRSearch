@@ -17,7 +17,7 @@ public class Line {
 	}
 	
 	/**
-	 * This class adds the stations to the stationList ArrayList
+	 * This class adds the {@link Station} to the stationList ArrayList
 	 * @param station to be added
 	 */
 	public void addStation(Station station) {
@@ -62,8 +62,8 @@ public class Line {
 	}
 
 	/**
-	 * This station retrieves ant station the user is searching for
-	 * @return the station the user is searching for
+	 * This station retrieves ant {@link Station} the user is searching for
+	 * @return the {@link Station} the user is searching for
 	 */
 	public LinkedList<Station> getStations(){
 		return stationList;
