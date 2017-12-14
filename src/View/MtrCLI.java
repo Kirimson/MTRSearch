@@ -3,11 +3,8 @@ package View;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.Scanner;
 
-import Model.Line;
 import Model.LineList;
 import Model.Reader;
 import Model.Station;
@@ -81,14 +78,30 @@ public class MtrCLI {
 		
 		Station start = stations.getStation(statString.split(",")[0].trim());
 		Station goalStation = stations.getStation(statString.split(",")[1].trim());
-		HashMap<Station, Station> path = new HashMap<Station, Station>();
 		
-		LinkedList<String> realPath = stations.bfs(start, goalStation);
+		HashMap<Station, ArrayList<Station>> path = stations.bfs(start, goalStation);
+		
+		Station currChild = goalStation;
+		
+		ArrayList<String> realPath = new ArrayList<String>();
+		
+		realPath.add(goalStation.getName());
+		
+		while(path.get(currChild) != null) {
+			ArrayList<Station> currentList = path.get(currChild);
+			
+			realPath.add(currentList.get(currentList.size()-1).getName());
+			currChild = currentList.get(currentList.size()-1);
+		}
+		
+		Collections.reverse(realPath);
 		
 		StringBuffer sb = new StringBuffer();
+		
 		for(int i = 0; i < realPath.size(); i++) {
 			String s = realPath.get(i);
-			if(i == path.size()-1)
+			
+			if(i == realPath.size()-1)
 				sb.append(s);
 			else
 				sb.append(s+" -> ");
