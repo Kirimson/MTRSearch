@@ -48,8 +48,18 @@ public class StationList {
 	 * @return station user was searching for
 	 */
 	
-	public ArrayList<Station> getLinkedStations(String name){
+	public HashSet<Station> getLinkedStations(String name){
 		return stationList.get(name.toLowerCase()).getLinkedStations();
+	}
+	
+	public String gettLinkedStations(String name){
+		String s = "";
+		
+		for(Station st : stationList.get(name.toLowerCase()).getLinkedStations()){
+			s += st.getName()+", ";
+		}
+		
+		return s;
 	}
 	
 	/**

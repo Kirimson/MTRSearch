@@ -54,6 +54,8 @@ public class MtrCLI {
 				case "connected": System.out.println(lines.findConnectedLines(rest));break;
 				case "path": System.out.println(findPath(rest));;break;
 				case "help": System.out.println(helpMe());;break;
+				case "v": System.out.println(stations.gettLinkedStations(rest));;break;
+				case "c": System.out.println(stations.getLinkedStations(rest));;break;
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
 		}

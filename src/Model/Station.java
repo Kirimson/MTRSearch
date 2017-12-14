@@ -1,13 +1,12 @@
 package Model;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Station {
 
 	private String name;
 	private HashSet<String> lines;
-	private ArrayList<Station> linkedStations;
+	private HashSet<Station> linkedStations;
 
 	/**
 	 * Constructs a new Station, where name is the Station's name
@@ -16,7 +15,7 @@ public class Station {
 	public Station(String name) {
 		this.name = name;
 		lines = new HashSet<String>();
-		linkedStations = new ArrayList<Station>();
+		linkedStations = new HashSet<Station>();
 	}
 	
 	/**
@@ -55,7 +54,8 @@ public class Station {
 	 * Retrieve all linked {@link Station} objects in the linkedStations ArrayList
 	 * @return station that the user was searching for
 	 */
-	public ArrayList<Station> getLinkedStations(){
+	public HashSet<Station> getLinkedStations(){
+		
 		return linkedStations;
 	}
 

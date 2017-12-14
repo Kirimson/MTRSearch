@@ -60,17 +60,16 @@ public class LineList {
 	}
 	/**
 	 * 
-	 * Uses method {@link Line #getLinkedStations} to get all linked stations
+	 * Uses method {@link Line #getLinkedStations}
 	 * <p>
 	 *
-	 *	 
 	 * @param 		A string variable, name
 	 * @return 		HashSet of connected lines
 	 */
 	public HashSet<String> getConnected(String name){
 		HashSet<String> lineNames = new HashSet<String>();
 		
-		for(Station s : lineList.get(name).getLinkedStations()) {
+		for(Station s : lineList.get(name).getStations()) {
 			lineNames.addAll(s.getLines());
 		}
 		return lineNames;

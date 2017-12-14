@@ -45,6 +45,7 @@ public class Line {
 	
 	/**
 	 * Returns the string representation of the lines
+	 * @return A string of stations in the line
 	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -61,7 +62,7 @@ public class Line {
 		return sb.toString();
 	}
 	
-	public LinkedList<Station> getLinkedStations(){
+	public LinkedList<Station> getStations(){
 		return stationList;
 	}
 	
