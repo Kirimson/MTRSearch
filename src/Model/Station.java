@@ -9,38 +9,44 @@ public class Station {
 	private HashSet<String> lines;
 	private ArrayList<Station> linkedStations;
 	//add what stations are connected to this station
-	
+	/**
+	 * This is the constructor for the class.
+	 * @param station name
+	 */
 	public Station(String name) {
 		this.name = name;
 		lines = new HashSet<String>();
 		linkedStations = new ArrayList<Station>();
 	}
 	
+	/**
+	 * This method returns the stations name
+	 * @return station's name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * This method returns the the station lines which are listed in a HashSet
+	 * @return station lines
+	 */
 	public HashSet<String> getLines(){
 		return lines;
 	}
 	
+	/**
+	 * This method is to add a line to the line Hashmap
+	 * @param lines in the 	HashSet
+	 */
 	public void addLine(String line) {
 		lines.add(line);
 	}
 	
-	public String sharesLine(Station otherStation) {
-		
-		for(String line : lines) {
-			if(otherStation.getLines().contains(line))
-				for(String otherLine : otherStation.getLines()) {
-					if(getLines().contains(otherLine)) {
-						if(otherLine != line)
-							return line+" and "+otherLine;
-					}
-				}
-		}
-		return "not";
-	}
+	/**
+	 * This method is used to retrieve a station line
+	 * @return the line that the user searched
+	 */
 	
 	public String getLine() {
 		for(String line : lines) {
@@ -48,18 +54,19 @@ public class Station {
 		}
 		return "";
 	}
-	
-	public String getALine() {
-		for(String s : lines) {
-			return s;
-		}
-		return "";
-	}
-	
+
+/**
+ * 	This method is used to add stations to the ArrayList
+ * @param s is the station to be added
+ */
 	public void addLinkedStation(Station s){
 		linkedStations.add(s);
 	}
 	
+	/**
+	 * This method is used to retrieve stations in the ArrayList
+	 * @return station that the user was searching for
+	 */
 	public ArrayList<Station> getLinkedStations(){
 		
 //		StringBuffer sb = new StringBuffer();

@@ -11,10 +11,17 @@ public class StationList {
 
 	private HashMap<String, Station> stationList;
 	
+	/**
+	 * This is the constructor of this class
+	 */
 	public StationList() {
 		stationList = new HashMap<String, Station>();
 	}
 	
+	/**
+	 * This method
+	 * @param list
+	 */
 	public void addStations(HashMap<String, Station> list) {
 		stationList = list;
 	}
