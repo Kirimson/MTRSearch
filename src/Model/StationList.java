@@ -2,7 +2,6 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -31,7 +30,7 @@ public class StationList {
 		return stationList.get(name.toLowerCase()).getLinkedStations();
 	}
 	
-	public HashMap<Station, ArrayList<Station>> bfs(Station start, Station goal){
+	public HashMap<Station, ArrayList<Station>> findPath(Station start, Station goal){
 		
 		LinkedList<Station> openSet = new LinkedList<Station>();
 		HashSet<Station> closedSet = new HashSet<Station>();

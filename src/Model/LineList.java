@@ -27,7 +27,7 @@ public class LineList {
 		try {
 			termini = getLine(name.toLowerCase()).getTermini();
 		} catch (NullPointerException e) {
-			termini = "Sorry, this line doesn't exist.";
+			return "Sorry, line '"+name+"' doesn't exist. Please use a valid MTR line";
 		}
 		return termini;
 	}
@@ -44,7 +44,14 @@ public class LineList {
 	public String findConnectedLines(String name) {
 		StringBuffer sb = new StringBuffer();
 		
-		HashSet<String> lineNames = hashConn(name);
+		HashSet<String> lineNames = null;
+		
+		try {
+			lineNames = hashConn(name);
+		} catch (NullPointerException e) {
+			return "Sorry, line '"+name+"' doesn't exist. Please use a valid MTR line";
+		}
+		
 		
 		sb.append(getLine(name.toLowerCase()).getName()+" is connected to:\n");
 		
@@ -61,7 +68,7 @@ public class LineList {
 		try {
 			line = getLine(name.toLowerCase()).toString();
 		} catch (NullPointerException e) {
-			line = "Sorry, this line doesn't exist.";
+			return "Sorry, line '"+name+"' doesn't exist. Please use a valid MTR line";
 		}
 		return line;
 	}
