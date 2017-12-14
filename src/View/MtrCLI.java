@@ -67,11 +67,10 @@ public class MtrCLI {
 		sb.append("termini <Line> - Displays the terminal stations of a specified line\n");
 		sb.append("list <Line> - Displays all the stations of a specified line\n");
 		sb.append("connected <Line> - Displays all lines connected to a specified line\n");
-		sb.append("path <StationA>,<StationB> - Displays a path from StationA to StationB\n");
+		sb.append("path <Start Station>,<End Station> - Displays a path from <Start Station> to <End Station>\n");
 		sb.append("help - Displays this page");
 		
 		return sb.toString();
-		
 	}
 	
 	public String findPath(String statString) {
@@ -79,17 +78,25 @@ public class MtrCLI {
 		Station start = null;
 		Station goalStation = null;
 		
-		if(statString.split(",").length >= 2) {
-			if(statString.split(",").length >= 3) {
-				System.out.println("More than two stations have been provided. Only the first two will be used.");
+		String[] stationsString = statString.split(",");
+		
+		if(stationsString.length >= 2) {
+			if(stationsString.length >= 3) {
+				System.out.println("Warning: More than two stations have been provided. Only the first two will be used.");
 			}
-			start = stations.getStation(statString.split(",")[0].trim());
-			goalStation = stations.getStation(statString.split(",")[1].trim());
+			start = stations.getStation(stationsString[0].trim());
+			goalStation = stations.getStation(stationsString[1].trim());
 		}
 		else
 		{
-			return "Please enter two stations, in the format <Station1>,<Station2>. type 'help' for further assistence.";
+			return "Error: Please enter two stations, in the format <Start Station>,<End Station>. type 'help' for further assistence.";
 		}
+		
+		if(start == null)
+			return "Error: Station '"+stationsString[0]+"' doesn't exist. Please enter a valid MTR station";
+		
+		if(goalStation == null)
+			return "Error: Station '"+stationsString[1]+"' doesn't exist. Please enter a valid MTR station";
 		
 		HashMap<Station, ArrayList<Station>> path = stations.findPath(start, goalStation);
 		

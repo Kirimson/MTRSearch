@@ -54,7 +54,7 @@ public class LineList {
 		try {
 			termini = getLine(name.toLowerCase()).getTermini();
 		} catch (NullPointerException e) {
-			return "Sorry, line '"+name+"' doesn't exist. Please use a valid MTR line";
+			return "Error: Line '"+name+"' doesn't exist. Please use a valid MTR line";
 		}
 		return termini;
 	}
@@ -84,7 +84,7 @@ public class LineList {
 		try {
 			lineNames = getConnected(name);
 		} catch (NullPointerException e) {
-			return "Sorry, line '"+name+"' doesn't exist. Please use a valid MTR line";
+			return "Error: Line '"+name+"' doesn't exist. Please use a valid MTR line";
 		}
 		
 		
@@ -103,7 +103,7 @@ public class LineList {
 		try {
 			line = getLine(name.toLowerCase()).toString();
 		} catch (NullPointerException e) {
-			return "Sorry, line '"+name+"' doesn't exist. Please use a valid MTR line";
+			return "Error: Line '"+name+"' doesn't exist. Please use a valid MTR line";
 		}
 		return line;
 	}
