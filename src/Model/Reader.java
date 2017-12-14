@@ -1,7 +1,6 @@
 package Model;
 
 import java.io.File;
-
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +20,7 @@ public class Reader {
 	private File csv;
 	public Reader() {
 		//set up scanner and read csv file
-		csv = new File("files/MTR.csv");
+		csv = new File("MTRsystem_partial.csv");
 		try {
 			scan = new Scanner(csv, "utf8");
 		} catch (FileNotFoundException e) {

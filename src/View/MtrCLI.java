@@ -5,10 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import Model.LineList;
-import Model.Reader;
-import Model.Station;
-import Model.StationList;
+import Model.*;
 
 public class MtrCLI {
 
@@ -58,9 +55,9 @@ public class MtrCLI {
 				rest = commandString.split(" ", 2)[1];		
 				rest = rest.trim();
 			} catch(ArrayIndexOutOfBoundsException e) {
-				if(!command.equals("help"))
-					System.out.println("Warning: Please enter parameters, refer to help for further assistance.");
+				//Error caught later
 			}
+			
 			// Go to case dependent on what user enters or error handle
 			switch(command) {
 				case "termini": System.out.println(lines.lineTermini(rest));break;
@@ -68,8 +65,10 @@ public class MtrCLI {
 				case "connected": System.out.println(lines.findConnectedLines(rest));break;
 				case "path": System.out.println(findPath(rest));break;
 				case "help": System.out.println(helpMe());break;
+				case "quit": System.out.println("Goodbye.");isDone = true;break;
 				default: System.out.println("Sorry. That's not a command. Type 'help' for a list of available commands");
 			}
+			System.out.print("\n");
 		}
 		scanner.close();
 	}
