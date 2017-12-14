@@ -42,7 +42,7 @@ public class Line {
 		return sb.toString();
 	}
 
-	public LinkedList<Station> getStations(){
+	public LinkedList<Station> getLinkedStations(){
 		return stationList;
 	}
 	

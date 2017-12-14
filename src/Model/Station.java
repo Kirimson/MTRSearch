@@ -42,20 +42,6 @@ public class Station {
 		return "not";
 	}
 	
-	public String getLine() {
-		for(String line : lines) {
-			return line;
-		}
-		return "";
-	}
-	
-	public String getALine() {
-		for(String s : lines) {
-			return s;
-		}
-		return "";
-	}
-	
 	public void addLinkedStation(Station s){
 		linkedStations.add(s);
 	}

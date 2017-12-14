@@ -26,7 +26,7 @@ public class MtrCLI {
 	
 	public void run() {
 		stations.addStations(reader.createStations());
-		lines.addLines((reader.CreateLines(stations)));
+		lines.addLines((reader.createLines(stations)));
 		
 		Scanner scanner = new Scanner(System.in);
 		

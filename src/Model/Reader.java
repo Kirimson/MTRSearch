@@ -1,11 +1,19 @@
 package Model;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
+
+/**
+ * 
+ * This class is for reading in the file and storing it. It has two methods, createStations and createLines.
+ * createStation stores the stations within a HashMap and createLines stores the lines in an ArrayList
+ *
+ */
 
 public class Reader {
 
@@ -20,6 +28,17 @@ public class Reader {
 		}
 	}
 	
+	/**
+	 * 
+	 * Returns a Hash Map of stations that has the string of 
+	 * the station name for a key and the station object as
+	 * the value after reading the lines in and splitting into 
+	 * relevant parts.
+	 * <p>
+	 *
+	 *
+	 * @return      Hash Map of station names and station objects
+	 */
 	public HashMap<String, Station> createStations(){
 		HashMap<String, Station> stationList = new HashMap<String, Station>();
 		
@@ -50,14 +69,22 @@ public class Reader {
 		return stationList;
 	}
 	
-	public ArrayList<Line> CreateLines(StationList stationList){
+	/**
+	 * Returns an Array List of lines after extracting relevant 
+	 * line names from file
+	 * <p>
+	 *
+	 * @param 		StationList a list of stations
+	 * @return      Array List of lines
+	 */
+	public ArrayList<Line> createLines(StationList stationList){
 		
 		ArrayList<Line> lines = new ArrayList<Line>();
 		
 		try {
 			scan = new Scanner(csv, "utf8");
 		} catch (FileNotFoundException e) {
-			System.out.println("not there");
+			System.out.println("File is not in directory specified.");
 		}
 		
 		while(scan.hasNextLine()) {
