@@ -8,9 +8,9 @@ public class Station {
 	private String name;
 	private HashSet<String> lines;
 	private ArrayList<Station> linkedStations;
-	//add what stations are connected to this station
+
 	/**
-	 * This is the constructor for the class.
+	 * Constructs a new Station, where name is the Station's name
 	 * @param station name
 	 */
 	public Station(String name) {
@@ -20,7 +20,7 @@ public class Station {
 	}
 	
 	/**
-	 * This method returns the stations name
+	 * Returns the stations name
 	 * @return station's name
 	 */
 	public String getName() {
@@ -28,54 +28,34 @@ public class Station {
 	}
 	
 	/**
-	 * This method returns the the station lines which are listed in a HashSet
-	 * @return station lines
+	 * Returns the the Station's lines it is connected to
+	 * @return connected lines to this Station
 	 */
 	public HashSet<String> getLines(){
 		return lines;
 	}
 	
 	/**
-	 * This method is to add a line to the line Hashmap
+	 * Adds a String of a line in string format to the station
 	 * @param lines in the 	HashSet
 	 */
 	public void addLine(String line) {
 		lines.add(line);
 	}
-	
-	/**
-	 * This method is used to retrieve a station line
-	 * @return the line that the user searched
-	 */
-	
-	public String getLine() {
-		for(String line : lines) {
-			return line;
-		}
-		return "";
-	}
 
-/**
- * 	This method is used to add stations to the ArrayList
- * @param s is the station to be added
- */
-	public void addLinkedStation(Station s){
-		linkedStations.add(s);
+	/**
+	 * Adds a {@link Station} to the ArrayList of linked Stations
+	 * @param station is the station to be added
+	 */
+	public void addLinkedStation(Station station){
+		linkedStations.add(station);
 	}
 	
 	/**
-	 * This method is used to retrieve stations in the ArrayList
+	 * Retrieve all linked {@link Station} objects in the linkedStations ArrayList
 	 * @return station that the user was searching for
 	 */
 	public ArrayList<Station> getLinkedStations(){
-		
-//		StringBuffer sb = new StringBuffer();
-//		System.out.println(name);
-//		for(Station s : linkedStations){
-//			sb.append(s.getName());
-//			sb.append(",");
-//		}
-		
 		return linkedStations;
 	}
 

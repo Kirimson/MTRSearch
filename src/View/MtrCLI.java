@@ -67,11 +67,10 @@ public class MtrCLI {
 		sb.append("termini <Line> - Displays the terminal stations of a specified line\n");
 		sb.append("list <Line> - Displays all the stations of a specified line\n");
 		sb.append("connected <Line> - Displays all lines connected to a specified line\n");
-		sb.append("path <Start Station>,<End Station> - Displays a path from StationA to StationB\n");
+		sb.append("path <Start Station>,<End Station> - Displays a path from <Start Station> to <End Station>\n");
 		sb.append("help - Displays this page");
 		
 		return sb.toString();
-		
 	}
 	
 	public String findPath(String statString) {

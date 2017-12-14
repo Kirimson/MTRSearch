@@ -8,16 +8,16 @@ public class Line {
 	private LinkedList<Station> stationList;
 	
 	/**
-	 * This the constrcutor of this class
-	 * @param lineName
+	 * Creates a new {@link Line} object, using lineName as the Line's name
+	 * @param lineName the name of the {@link Line}
 	 */
 	public Line(String lineName){
 		name = lineName;
-		stationList = new LinkedList<Station>();;
+		stationList = new LinkedList<Station>();
 	}
 	
 	/**
-	 * This class adds the {@link Station} to the stationList ArrayList
+	 * Adds the {@link Station} to this Line's ArrayList of stations
 	 * @param station to be added
 	 */
 	public void addStation(Station station) {
@@ -25,8 +25,8 @@ public class Line {
 	}
 	
 	/**
-	 * This method is to get a termini
-	 * @return the name of the termini, where it goes from.
+	 * Returns the start and end stations of the Line
+	 * @return the name of the termini
 	 */
 	public String getTermini(){
 		String first = stationList.getFirst().getName();
@@ -36,7 +36,7 @@ public class Line {
 	}
 	
 	/**
-	 * This method retrieves the name of the line
+	 * Retrieves the name of the line
 	 * @return the name of the line retrieved
 	 */
 	public String getName() {
@@ -44,7 +44,7 @@ public class Line {
 	}
 	
 	/**
-	 * This methods returns the string representation of the lines
+	 * Returns the string representation of the lines
 	 */
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -62,8 +62,8 @@ public class Line {
 	}
 
 	/**
-	 * This station retrieves ant {@link Station} the user is searching for
-	 * @return the {@link Station} the user is searching for
+	 * Retrieves the list of {@link Station} objects in stationList
+	 * @return the LinkedList of stations contained by the Line
 	 */
 	public LinkedList<Station> getStations(){
 		return stationList;
