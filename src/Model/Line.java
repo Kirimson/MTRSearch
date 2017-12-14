@@ -52,6 +52,7 @@ public class Line {
 		
 		sb.append(name + ": ");
 		
+		//loop through all stations in the line and append to the StringBuffer
 		for(Station s: stationList) {
 			if(s.getName().equals(stationList.getLast().getName()))
 				sb.append(s.getName());

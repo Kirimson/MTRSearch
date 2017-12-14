@@ -9,7 +9,6 @@ public class LineList {
 	
 	/**
 	 * Class Constructor initialises lineList HashMap.
-	 * <p>
 	 * 
 	 */
 	public LineList() {
@@ -18,24 +17,19 @@ public class LineList {
 	/**
 	 * 
 	 * Uses {@link Line #getName} to get the correct Key for the Line
-	 * <p>
 	 *
-	 * @param 		ArrayList of lines
+	 * @param lines ArrayList of lines
 	 */
 	public void addLines(ArrayList<Line> lines) {
 		for(Line line : lines)
-		{
 			lineList.put(line.getName().toLowerCase(), line);
-		}
 	}
 	/**
 	 * 
 	 * Returns a line dependent on the Line name specified
-	 * <p>
-	 *
 	 *	 
-	 * @param 		A string variable, name
-	 * @return 		A Line object
+	 * @param name A string variable
+	 * @return A Line object
 	 */
 	public Line getLine(String name) {
 		return lineList.get(name);
@@ -43,11 +37,9 @@ public class LineList {
 	/**
 	 * 
 	 * Uses the getTermini method from {@link Line #getTermini} to retrieve two termini.
-	 * <p>
-	 *
 	 *	 
-	 * @param 		A string variable, name
-	 * @return 		a string variable, termini
+	 * @param name A string variable
+	 * @return a string variable, termini
 	 */
 	public String lineTermini(String name) {
 		String termini = "";
@@ -62,10 +54,9 @@ public class LineList {
 	/**
 	 * 
 	 * Uses methods {@link Line #getStations} and {@link Station #getLines} in order to get all connected stations
-	 * <p>
 	 *
-	 * @param 		A string variable, name
-	 * @return 		HashSet of connected lines
+	 * @param name A string variable
+	 * @return HashSet of connected lines
 	 */
 	public HashSet<String> getConnected(String name){
 		HashSet<String> lineNames = new HashSet<String>();
@@ -78,11 +69,9 @@ public class LineList {
 	
 	/**
 	 * Returns a string of all the connected lines.
-	 * 
-	 * <p>
 	 *
-	 * @param 		A string variable, name
-	 * @return 		A string of all connected lines
+	 * @param name A string variable
+	 * @return A string of all connected lines
 	 */
 	public String findConnectedLines(String name) {
 		StringBuffer sb = new StringBuffer();

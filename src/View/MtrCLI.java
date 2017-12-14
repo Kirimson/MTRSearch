@@ -20,7 +20,6 @@ public class MtrCLI {
 	
 	/**
 	 * Class Constructor initialises lineList, stationList and reader objects.
-	 * <p>
 	 * 
 	 */
 	public MtrCLI() {
@@ -107,10 +106,13 @@ public class MtrCLI {
 		
 		String[] stationsString = startEnd.split(",");
 		
+		//check if there are at least 2 parameters
 		if(stationsString.length >= 2) {
-			if(stationsString.length >= 3) {
+			//check if there are more then 3 arguments and give a warning if there is
+			if(stationsString.length >= 3)
 				System.out.println("Warning: More than two stations have been provided. Only the first two will be used.");
-			}
+			
+			//set start and goal stations
 			start = stations.getStation(stationsString[0].trim());
 			goalStation = stations.getStation(stationsString[1].trim());
 		}
@@ -122,15 +124,18 @@ public class MtrCLI {
 		
 		if(goalStation == null)
 			return "Error: Station '"+stationsString[1]+"' doesn't exist. Please enter a valid MTR station";
+
 		
+		//use the BFS search
 		HashMap<Station, ArrayList<Station>> path = stations.findPath(start, goalStation);
-		
 		Station currChild = goalStation;
 		
+		//the path that will be returned and add the goal to the beginning (path is made in reverse)
 		ArrayList<String> realPath = new ArrayList<String>();
 		
 		realPath.add(goalStation.getName());
 		
+		//backtrace way through the BFS using the HashMapwith ArrayList as the value, getting last station for each child
 		while(path.get(currChild) != null) {
 			ArrayList<Station> currentList = path.get(currChild);
 			
@@ -138,10 +143,11 @@ public class MtrCLI {
 			currChild = currentList.get(currentList.size()-1);
 		}
 		
+		//reverse path to be in the correct order
 		Collections.reverse(realPath);
-		
+
+		//format the path correctly
 		StringBuffer sb = new StringBuffer();
-		
 		for(int i = 0; i < realPath.size(); i++) {
 			String s = realPath.get(i);
 			
