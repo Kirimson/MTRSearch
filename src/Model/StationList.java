@@ -43,26 +43,6 @@ public class StationList {
 	}
 	
 	/**
-	 * This method is to retrieve the LinkedStations
-	 * @param name of station
-	 * @return station user was searching for
-	 */
-	
-	public HashSet<Station> getLinkedStations(String name){
-		return stationList.get(name.toLowerCase()).getLinkedStations();
-	}
-	
-	public String gettLinkedStations(String name){
-		String s = "";
-		
-		for(Station st : stationList.get(name.toLowerCase()).getLinkedStations()){
-			s += st.getName()+", ";
-		}
-		
-		return s;
-	}
-	
-	/**
 	 * This method reads out the name of {@link Station} objects in the object 
 	 * @param start is the station the path is starting from
 	 * @param goal is the end of the path
